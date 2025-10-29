@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Systeme.io Launchpad | DFY Course Creation</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Plus Jakarta Sans (Modern, bold) & Inter (Clean body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Applying the fonts */
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        
+        /* Custom text gradient class */
+        .text-gradient {
+            background: linear-gradient(to right, #6366F1, #A855F7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+
+        /* Glassmorphism card effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05); /* Lighter bg on dark mode */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        /* Subtle glow for buttons */
+        .btn-glow {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3), 0 0 5px rgba(99, 102, 241, 0.2);
+        }
+
+        /* Animated Checkmark */
+        .checkmark-svg {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: block;
+            stroke-width: 3;
+            stroke: #fff;
+            stroke-miterlimit: 10;
+            margin: 0 auto;
+            box-shadow: inset 0px 0px 0px #4ade80;
+            animation: fill-success .4s ease-in-out .4s forwards, scale-success .3s ease-in-out .9s both;
+        }
+        .checkmark-path {
+            stroke-dasharray: 100;
+            stroke-dashoffset: 100;
+            animation: draw-check .5s ease-out .4s forwards;
+        }
+        @keyframes draw-check {
+            to { stroke-dashoffset: 0; }
+        }
+        @keyframes fill-success {
+            from { box-shadow: inset 0px 0px 0px #4ade80; }
+            to { box-shadow: inset 0px 0px 50px #4ade80; }
+        }
+        @keyframes scale-success {
+            from { transform: scale(0); }
+            to { transform: scale(1); }
+        }
+
+        /* Loading Spinner */
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #4f46e5;
+            border-bottom-color: transparent;
+            border-radius: 50%;
+            display: inline-block;
+            box-sizing: border-box;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-200 antialiased overflow-x-hidden">
+
+    <!-- Header & Navigation Bar -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-gray-900/80 backdrop-blur-md border-b border-gray-700/50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Logo / Brand Name -->
+            <a href="#" class="text-2xl font-bold text-white">
+                Edu<span class="text-indigo-400">automator</span>
+            </a>
+            
+            <!-- Navigation Links (Hidden on Mobile) -->
+            <div class="hidden md:flex space-x-6 items-center">
+                <a href="#services" class="text-gray-300 hover:text-indigo-400 transition duration-300">Services</a>
+                <a href="#work" class="text-gray-300 hover:text-indigo-400 transition duration-300">My Work</a>
+                <a href="#process" class="text-gray-300 hover:text-indigo-400 transition duration-300">Process</a>
+                <a href="#about" class="text-gray-300 hover:text-indigo-400 transition duration-300">About</a>
+                <a href="#cta" id="nav-cta-btn" class="bg-indigo-600 text-white px-5 py-2 rounded-full font-medium hover:bg-indigo-500 transition duration-300 transform hover:scale-105">
+                    Let's Talk
+                </a>
+            </div>
+            
+            <!-- Mobile Menu Button (Simple) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-btn" class="text-white focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
+        </nav>
+        
+        <!-- Mobile Menu (Hidden by default) -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-gray-900/95 backdrop-blur-md py-4 space-y-2 px-6 border-b border-gray-700/50">
+            <a href="#services" class="block text-gray-300 hover:text-indigo-400 transition duration-300 py-2">Services</a>
+            <a href="#work" class="block text-gray-300 hover:text-indigo-400 transition duration-300 py-2">My Work</a>
+            <a href="#process" class="block text-gray-300 hover:text-indigo-400 transition duration-300 py-2">Process</a>
+            <a href="#about" class="block text-gray-300 hover:text-indigo-400 transition duration-300 py-2">About</a>
+            <a href="#cta" id="mobile-cta-btn" class="block bg-indigo-600 text-white px-5 py-2 rounded-full font-medium hover:bg-indigo-500 transition duration-300 transform hover:scale-105 text-center mt-2">
+                Let's Talk
+            </a>
+        </div>
+    </header>
+
+    <main class="pt-20"> <!-- Padding top to offset fixed header -->
+
+        <!-- Hero Section -->
+        <section class="relative pt-24 pb-32 md:pt-32 md:pb-40 container mx-auto px-6 text-center">
+            <!-- Background Gradient Blur -->
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/3 w-96 h-96 md:w-[40rem] md:h-[40rem] bg-purple-600/30 rounded-full blur-3xl opacity-50 -z-10"></div>
+        
+            <h1 class="text-5xl md:text-7xl lg:text-8xl font-extrabold text-white leading-tight">
+                Ditch the Tech Drama.
+                <br>
+                <span class="text-gradient">Own Your Digital Classroom.</span>
+            </h1>
+            <p class="mt-8 text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+                You're brilliant. Your course should be too. I build killer online academies on Systeme.io so you can focus on impact, not interfaces.
+            </p>
+            <a href="#cta" id="hero-cta-btn" class="mt-10 inline-block bg-indigo-600 text-white text-lg font-semibold px-10 py-4 rounded-full shadow-lg btn-glow hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105">
+                Launch My Empire 🚀 (Free Call!)
+            </a>
+        </section>
+
+        <!-- Social Proof Bar (Subtle) -->
+        <section class="py-8 border-y border-gray-700/50">
+            <div class="container mx-auto px-6">
+                <p class="text-center text-sm text-gray-400 uppercase tracking-widest">
+                    As Seen In / Trusted By
+                </p>
+                <div class="flex justify-center items-center space-x-8 md:space-x-12 mt-4 opacity-70">
+                    <!-- Replace with your client logos or features -->
+                    <span class="font-medium text-lg text-gray-300">Forbes</span>
+                    <span class="font-medium text-lg text-gray-300">Buzzfeed</span>
+                    <span class="font-medium text-lg text-gray-300">The Hustle</span>
+                    <span class="font-medium text-lg text-gray-300">TechCrunch</span>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Problem Section -->
+        <section class="py-24 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">
+                        Let's Be Real: Building a Course Sucks
+                    </h2>
+                    <p class="text-lg text-gray-400 mt-4">(Unless it's my job).</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-16">
+                    <!-- Pain Point 1 -->
+                    <div class="glass-card p-6 rounded-2xl">
+                        <span class="text-4xl">😩</span>
+                        <h3 class="text-xl font-bold text-white mt-4">Drowning in Tech Tutorials?</h3>
+                        <p class="text-gray-300 mt-2">Spending more time on YouTube learning tech than actually creating your content.</p>
+                    </div>
+                    <!-- Pain Point 2 -->
+                    <div class="glass-card p-6 rounded-2xl">
+                        <span class="text-4xl">🧟‍♂️</span>
+                        <h3 class="text-xl font-bold text-white mt-4">"Franken-Platform"</h3>
+                        <p class="text-gray-300 mt-2">Juggling 5+ tools that don't vibe, costing you time and money.</p>
+                    </div>
+                    <!-- Pain Point 3 -->
+                    <div class="glass-card p-6 rounded-2xl">
+                        <span class="text-4xl">🤷‍♀️</span>
+                        <h3 class="text-xl font-bold text-white mt-4">Losing Credibility?</h3>
+                        <p class="text-gray-300 mt-2">Your DIY site feels less "premium academy" and more "school project."</p>
+                    </div>
+                    <!-- Pain Point 4 -->
+                    <div class="glass-card p-6 rounded-2xl">
+                        <span class="text-4xl">💸</span>
+                        <h3 class="text-xl font-bold text-white mt-4">Wasting Prime Time?</h3>
+                        <p class="text-gray-300 mt-2">Every hour on 'backend' is an hour you're not marketing, teaching, or chilling.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="py-24 md:py-32 bg-gray-900/80">
+            <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="pr-0 md:pr-10">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">
+                        Your Expertise.
+                        <br>
+                        <span class="text-gradient">My Tech Magic.</span>
+                        <br>
+                        Zero Headaches.
+                    </h2>
+                    <p class="text-lg text-gray-300 mt-6">
+                        Imagine: A stunning, fully-functional online course website, student learning space, community hub, and automated emails – all professionally built and ready to scale.
+                    </p>
+                    <p class="text-lg text-gray-300 mt-4">
+                        I transform your raw brilliance into a polished, revenue-generating digital learning experience, all powered by the simplicity and power of Systeme.io.
+                    </p>
+                    <a href="#cta" class="mt-8 inline-block bg-indigo-600 text-white text-md font-semibold px-8 py-3 rounded-full shadow-lg btn-glow hover:bg-indigo-500 transition-all duration-300 transform hover:scale-105">
+                        Book My Free Call
+                    </a>
+                </div>
+                <div>
+                    <!-- Placeholder for a clean graphic -->
+                    <div>
+                    <!-- 
+                      FIX: Replaced the placeholder div with the generated 16:9 image.
+                    -->
+                    <img src="assets/dashboard.png" alt="Sleek and modern online course dashboard" class="w-full h-auto rounded-2xl shadow-2xl border border-gray-700">
+                </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- "My Work" Portfolio Section -->
+        <section id="work" class="py-24 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">See the Magic in Action.</h2>
+                    <p class="text-lg text-gray-400 mt-4">
+                        These aren't just websites; they're fully integrated ecosystems designed for impact and effortless learning.
+                    </p>
+                </div>
+                
+                <!-- Portfolio Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+                      
+    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-blue-500/30 flex flex-col">
+        
+        <img src="assets/fitness.png" alt="Fitness and wellness course dashboard" class="w-full h-60 object-cover">
+        
+        <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-white">The Fit-Life Academy</h3>
+            <p class="text-gray-300 mt-3">
+                A high-energy, all-in-one fitness hub. Features a 12-module workout course, a private community for motivation, and an automated sales funnel.
+            </p>
+            
+            <div class="mt-auto">
+                <div class="w-full h-px bg-gray-700 my-5"></div>
+                
+                <a href="#" target="_blank" class="inline-block text-center w-full py-3 px-6 rounded-full font-semibold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105">
+                    View Project
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-yellow-500/30 flex flex-col">
+        
+        <img src="assets/Make money online.png" alt="AI monetization course project" class="w-full h-60 object-cover">
+        
+        <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-white">The AI Profit Accelerator</h3>
+            <p class="text-gray-300 mt-3">
+                A cutting-edge platform for AI monetization. Built with dynamic landing pages, a vibrant members-only area, and an integrated upsell/welcome sequence.
+            </p>
+            
+            <div class="mt-auto">
+                <div class="w-full h-px bg-gray-700 my-5"></div>
+                
+                <a href="#" target="_blank" class="inline-block text-center w-full py-3 px-6 rounded-full font-semibold text-gray-900 bg-yellow-500 hover:bg-yellow-400 shadow-lg shadow-yellow-500/30 hover:shadow-yellow-500/50 transition-all duration-300 transform hover:scale-105">
+                    View Project
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="glass-card rounded-2xl overflow-hidden shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-green-500/30 flex flex-col">
+        
+        <img src="assets/Lifestyle.png" alt="Lifestyle and motivation workshop project" class="w-full h-60 object-cover">
+        
+        <div class="p-6 flex flex-col flex-1">
+            <h3 class="text-2xl font-bold text-white">The 'Momentum' Hub</h3>
+            <p class="text-gray-300 mt-3">
+                An inspiring digital space for lifestyle coaching. Hosts multiple workshops with drip content, feedback forms, and an automated list-building funnel.
+            </p>
+            
+            <div class="mt-auto">
+                <div class="w-full h-px bg-gray-700 my-5"></div>
+                
+                <a href="#" target="_blank" class="inline-block text-center w-full py-3 px-6 rounded-full font-semibold text-white bg-green-600 hover:bg-green-500 shadow-lg shadow-green-500/30 hover:shadow-green-500/50 transition-all duration-300 transform hover:scale-105">
+                    View Project
+                </a>
+            </div>
+        </div>
+    </div>
+    
+</div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-24 md:py-32 bg-gray-800/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">
+                        Your All-Access Pass:
+                        <br>
+                        <span class="text-gradient">The Systeme.io Launch Pack</span>
+                    </h2>
+                    <p class="text-lg text-gray-400 mt-4">
+                        Everything you need, meticulously built, beautifully branded, and ready to make sales.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-16">
+                    <!-- Service 1 -->
+                    <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700">
+                        <svg class="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mt-5">Full-Stack Platform Setup</h3>
+                        <p class="text-gray-300 mt-2">From custom domain to payment integrations (Stripe, PayPal), I handle the entire Systeme.io backend so it's flawless.</p>
+                    </div>
+                    <!-- Service 2 -->
+                    <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700">
+                        <svg class="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mt-5">High-Converting Sales Funnel</h3>
+                        <p class="text-gray-300 mt-2">A scroll-stopping sales page (your "portfolio"), optimized checkout, and thank you pages designed to convert.</p>
+                    </div>
+                    <!-- Service 3 -->
+                    <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700">
+                        <svg class="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13.5M8.25 6.253l-3.026 3.026c-.304.304-.456.712-.456 1.126v3.375c0 .414.152.822.456 1.126l3.026 3.026M15.75 6.253l3.026 3.026c.304.304.456.712.456 1.126v3.375c0 .414-.152.822-.456 1.126l-3.026 3.026"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mt-5">Elite Student Learning Space</h3>
+                        <p class="text-gray-300 mt-2">Your course content (videos, PDFs, text) organized into an intuitive, engaging, and professional member's area.</p>
+                    </div>
+                    <!-- Service 4 -->
+                    <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700">
+                        <svg class="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-2.29l-2.122-2.122M3 20h5v-2a3 3 0 015.356-2.29l2.122-2.122M12 8V3m0 18v-5m0-6H9m3 0h3m-3 0v6m0-6V8m0-5V3m0 0h3m-3 0H9m12 5h-3m3 0v3m-3 0V8m0 0H9"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mt-5">Thriving Student Community</h3>
+                        <p class="text-gray-300 mt-2">A dedicated, private space for your students to connect, share, and get support – boosting engagement and results.</p>
+                    </div>
+                    <!-- Service 5 -->
+                    <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700">
+                        <svg class="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mt-5">"Smart Seller" Email Automations</h3>
+                        <p class="text-gray-300 mt-2">Essential sequences like post-purchase welcome emails and cart abandonment reminders, turning browsers into buyers.</p>
+                    </div>
+                    <!-- Service 6 -->
+                    <div class="p-8 bg-gray-800 rounded-2xl border border-gray-700">
+                        <svg class="w-10 h-10 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        <h3 class="text-2xl font-bold text-white mt-5">Lead Magnet Funnel (Add-on)</h3>
+                        <p class="text-gray-300 mt-2">Want to build your list? I'll set up a freebie opt-in page and email sequence to capture leads on autopilot.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="process" class="py-24 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">Your Launch, My Blueprint.</h2>
+                    <p class="text-lg text-gray-400 mt-4">
+                        The 4-Step Journey to a stress-free launch.
+                    </p>
+                </div>
+                
+                <div class="relative mt-16">
+                    <!-- Dotted line for desktop -->
+                    <div class="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 border-t-2 border-dashed border-gray-700 -translate-y-1/2"></div>
+                    
+                    <div class="relative grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <!-- Step 1 -->
+                        <div class="glass-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold text-gradient">01</div>
+                            <h3 class="text-2xl font-bold text-white mt-4">Kickoff & Strategy</h3>
+                            <p class="text-gray-300 mt-2">We hop on a 30-min call. You spill the tea on your vision, your course, your brand. I listen and strategize.</p>
+                        </div>
+                        <!-- Step 2 -->
+                        <div class="glass-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold text-gradient">02</div>
+                            <h3 class="text-2xl font-bold text-white mt-4">Content Drop</h3>
+                            <p class="text-gray-300 mt-2">You send me all your awesome course materials – videos, PDFs, brand guide, photos. Easy peasy.</p>
+                        </div>
+                        <!-- Step 3 -->
+                        <div class="glass-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold text-gradient">03</div>
+                            <h3 class="text-2xl font-bold text-white mt-4">Build & Design Magic</h3>
+                            <p class_at="text-gray-300 mt-2">This is where I get to work! I meticulously build, design, and automate everything. You go relax.</p>
+                        </div>
+                        <!-- Step 4 -->
+                        <div class="glass-card p-8 rounded-2xl text-center">
+                            <div class="text-5xl font-bold text-gradient">04</div>
+                            <h3 class="text-2xl font-bold text-white mt-4">Review & GO LIVE!</h3>
+                            <p class="text-gray-300 mt-2">In as little as 2 weeks, your entire system is ready. We review, tweak if needed, and hit that launch button!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Who Is This For? Section -->
+        <section id="about" class="py-24 md:py-32 bg-gray-800/50">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">
+                        Who Needs This?
+                    </h2>
+                    <p class="text-lg text-gray-400 mt-4">
+                        (Hint: If you're here, it's probably YOU.)
+                    </p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 max-w-4xl mx-auto">
+                    <!-- For Influencers -->
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-indigo-500/20 flex items-center justify-center border-2 border-indigo-500">
+                             <svg class="w-8 h-8 text-indigo-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mt-6">For the Influencer</h3>
+                        <p class="text-gray-300 mt-3">
+                            You've got the audience and the engagement. Now, turn that social power into serious, scalable income with a high-value course that converts.
+                        </p>
+                    </div>
+                    
+                    <!-- For Educators / Coaches -->
+                    <div class="bg-gray-800 p-8 rounded-2xl border border-gray-700 flex flex-col items-center text-center">
+                        <div class="w-16 h-16 rounded-full bg-purple-500/20 flex items-center justify-center border-2 border-purple-500">
+                            <svg class_at="w-8 h-8 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                        <h3 class="text-3xl font-bold text-white mt-6">For the Educator / Coach</h3>
+                        <p class="text-gray-300 mt-3">
+                            You're brilliant at teaching and transforming lives. Stop struggling with tech and let me create the seamless online academy your expertise deserves.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-24 md:py-32">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-3xl mx-auto">
+                    <h2 class="text-4xl md:text-5xl font-bold text-white">
+                        Don't Just Take My Word For It.
+                    </h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16 max-w-5xl mx-auto">
+                    <!-- Testimonial 1 -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <p class="text-xl text-gray-200 leading-relaxed">
+                            "Seriously, a game-changer! I was dreading setting up my course, but [Your Name] made it *so* easy. My students love the platform, and I'm finally selling on autopilot!"
+                        </p>
+                        <div class="flex items-center mt-6">
+                            <img src="https://placehold.co/100x100/6366F1/white?text=A" alt="Client 1" class="w-12 h-12 rounded-full border-2 border-indigo-400">
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Alex Chen</h4>
+                                <p class="text-indigo-300">Fitness Coach</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="glass-card p-8 rounded-2xl">
+                        <p class="text-xl text-gray-200 leading-relaxed">
+                            "Beyond impressed with the speed and quality. My sales page looks incredible, and the course area is exactly what I envisioned. 10/10, highly recommend!"
+                        </p>
+                        <div class="flex items-center mt-6">
+                            <img src="https://placehold.co/100x100/A855F7/white?text=M" alt="Client 2" class="w-12 h-12 rounded-full border-2 border-purple-400">
+                            <div class="ml-4">
+                                <h4 class="text-lg font-bold text-white">Maria Rodriguez</h4>
+                                <p class="text-purple-300">Business Strategist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA Section -->
+        <section id="cta" class="py-24 md:py-32">
+            <div class="container mx-auto px-6">
+                <div id="cta-container" class="relative text-center bg-gradient-to-r from-indigo-600 to-purple-600 p-12 md:p-16 rounded-3xl shadow-2xl overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.68,-0.55,0.27,1.55)] min-h-[450px] flex items-center justify-center">
+                    <!-- Subtle background pattern -->
+                    <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMiIgaGVpZ2h0PSIzMiIgdmlld0JveD0iMCAwIDMyIDMyIj48cGF0aCBmaWxsPSJ3aGl0ZSIgZmlsbC1vcGFjaXR5PSIwLjEiIGQ9Ik0yMCAxMHYyYTggOCAwIDEgMSA1LjY2IDIuMzRBMTIgMTIgMCAwIDAgMTIgMGgtMlYyYTEwIDEwIDAgMSAxIDAgMjAgdjJoMlAxMiAxMiAwIDAgMCAyMCAxMFptLTIgMnYyYTggOCAwIDEgMS01LjY2IDIuMzRBMTIgMTIgMCAwIDAgMTIgNHYtMmEyIDEgMCAwIDEtMS4wMS0xLjk5QTQgNCAwIDAgMCAxNiA4djR6TTQgMTJoMiAxMiAxMiAwIDAgMCAxMC4wMS0xNy4wMEExMCAxMCAwIDAgMSAyMiA0VjJoLTJhOCA4IDAgMSAxIDAgMTZ2MmEyIDEgMCAwIDEtMiAwdi0yYTQgNCAwIDAgMCAwLThWNHoiPjwvcGF0aD48L3N2Zz4='); background-repeat: repeat;"></div>
+                    
+                    <!-- State 1: Initial Content -->
+                    <div id="cta-content-initial" class="relative z-10 transition-all duration-300 ease-in-out">
+                        <h2 class="text-4xl md:text-6xl font-extrabold text-white">
+                            Ready to Stop Dreaming & Start Earning?
+                        </h2>
+                        <p class="text-lg md:text-xl text-indigo-100 mt-6 max-w-2xl mx-auto">
+                            Your ultimate Systeme.io course platform is just a click away. Let's make your launch unforgettable.
+                        </p>
+                        <a href="#" id="final-cta-btn" class="mt-10 inline-block bg-white text-indigo-600 text-lg font-bold px-12 py-4 rounded-full shadow-2xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                            LET'S BUILD MY ACADEMY! (Free Call)
+                        </a>
+                    </div>
+
+                    <!-- State 2: Form Content (Hidden by default) -->
+                    <div id="cta-content-form" class="relative z-10 w-full max-w-lg hidden opacity-0 scale-95 transition-all duration-300 ease-in-out">
+                        <h2 class="text-4xl md:text-5xl font-extrabold text-white mb-8">Let's Get Started</h2>
+                        
+                        <!-- 
+                          CORRECTION 1: 
+                          Added target="hidden-frame" to submit the form in the background 
+                          to the iframe we will add later.
+                        -->
+                        <form id="contact-form" class="space-y-4 text-left" action="https://docs.google.com/forms/d/e/1FAIpQLScKAC8NQ4b8t5X8tXH5tzKnAtwYdFVnriyYhjk6Rk211trsJA/formResponse" target="hidden-frame">
+                            <div>
+                                <label for="name" class="block text-sm font-medium text-indigo-100">Name</label>
+                                <!-- CORRECTION 2: Changed name attribute to match Google Form's required 'entry' format -->
+                                <input type="text" id="name" name="entry.969753733" class="mt-1 block w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Full Name" required>
+                            </div>
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-indigo-100">Company Name (Optional)</label>
+                                <!-- CORRECTION 3: Changed name attribute -->
+                                <input type="text" id="company" name="entry.1300192328" class="mt-1 block w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white" placeholder="Your Company, Inc.">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-indigo-100">Email</label>
+                                <!-- CORRECTION 4: Changed name attribute -->
+                                <input type="email" id="email" name="entry.1072490726" class="mt-1 block w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white" placeholder="you@awesome.com" required>
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-indigo-100">Phone</label>
+                                <!-- CORRECTION 5: Changed name attribute -->
+                                <input type="tel" id="phone" name="entry.472467115" class="mt-1 block w-full px-4 py-3 rounded-md bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-white" placeholder="+1 (555) 123-4567">
+                            </div>
+                            <button type="submit" class="w-full mt-6 bg-white text-indigo-600 text-lg font-bold px-12 py-3 rounded-full shadow-2xl hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
+                                Submit Request
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- State 3: Loading (Hidden by default) -->
+                    <div id="cta-content-loading" class="relative z-10 hidden opacity-0 transition-all duration-300 ease-in-out text-center">
+                        <div class="loader mx-auto"></div>
+                        <p class="text-xl text-white mt-6 font-medium">We will catch you soon...</p>
+                    </div>
+
+                    <!-- State 4: Success (Hidden by default) -->
+                    <div id="cta-content-success" class="relative z-10 hidden opacity-0 transition-all duration-300 ease-in-out text-center">
+                        <svg class="checkmark-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark-path" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                        <h2 class="text-4xl font-extrabold text-white mt-6">Your request sent!</h2>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+        
+    </main>
+    
+    <!-- 
+      CORRECTION 6: 
+      Added a hidden iframe. The form will submit its data here, 
+      so the main page doesn't reload.
+    -->
+    <iframe name="hidden-frame" id="hidden-frame" style="display:none;"></iframe>
+
+    <!-- Footer -->
+    <footer class="py-16 border-t border-gray-700/50">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p class="text-2xl font-bold text-white mb-4">
+                Edu<span class="text-indigo-400">automator</span>
+            </p>
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#services" class="hover:text-indigo-400 transition duration-300">Services</a>
+                <a href="#work" class="hover:text-indigo-400 transition duration-300">My Work</a>
+                <a href="#process" class="hover:text-indigo-400 transition duration-300">Process</a>
+                <a href="#cta" class="hover:text-indigo-400 transition duration-300">Contact</a>
+            </div>
+            <p>&copy; 2025 Eduautomator. All rights reserved.</p>
+            <p class="text-sm mt-2">Built with ❤️</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for interactivity -->
+    <script type="module">
+        // --- Mobile Menu Toggle ---
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileCtaBtn = document.getElementById('mobile-cta-btn');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // --- CTA Form Logic ---
+        const ctaContainer = document.getElementById('cta-container');
+        const allCtaButtons = [
+            document.getElementById('nav-cta-btn'),
+            document.getElementById('hero-cta-btn'),
+            document.getElementById('final-cta-btn'),
+            mobileCtaBtn
+        ];
+        
+        const contactForm = document.getElementById('contact-form');
+        
+        const contentInitial = document.getElementById('cta-content-initial');
+        const contentForm = document.getElementById('cta-content-form');
+        const contentLoading = document.getElementById('cta-content-loading');
+        const contentSuccess = document.getElementById('cta-content-success');
+        
+        let isFormOpen = false;
+
+        // Function to open the form
+        function openForm(e) {
+            e.preventDefault();
+            if (isFormOpen) return;
+            isFormOpen = true;
+
+            // Scroll to CTA section
+            document.getElementById('cta').scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            // Hide initial content
+            contentInitial.classList.add('opacity-0', 'scale-95');
+            
+            setTimeout(() => {
+                contentInitial.classList.add('hidden');
+                
+                // Expand container and show form
+                ctaContainer.style.minHeight = '650px'; // Set explicit height for expansion
+                contentForm.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    contentForm.classList.remove('opacity-0', 'scale-95');
+                }, 50); // Short delay to trigger transition
+
+            }, 300); // Wait for fade out
+        }
+
+        // Function to close the form and reset
+        function closeForm() {
+            // Hide all content panes
+            [contentForm, contentLoading, contentSuccess].forEach(el => {
+                el.classList.add('opacity-0', 'scale-95');
+            });
+
+            setTimeout(() => {
+                [contentForm, contentLoading, contentSuccess].forEach(el => {
+                    el.classList.add('hidden');
+                });
+
+                // Shrink container and show initial content
+                ctaContainer.style.minHeight = '450px'; // Reset to original min-height
+                contentInitial.classList.remove('hidden');
+                
+                setTimeout(() => {
+                    contentInitial.classList.remove('opacity-0', 'scale-95');
+                    isFormOpen = false;
+                    contactForm.reset(); // Reset form fields
+                }, 50);
+
+            }, 500); // Wait for fade out
+        }
+
+        // Add click listeners to all CTA buttons
+        allCtaButtons.forEach(btn => {
+            if(btn) {
+                btn.addEventListener('click', openForm);
+            }
+        });
+
+        // Handle Form Submission
+        
+        /*
+          CORRECTION 7: 
+          Re-enabled the submit listener, removed preventDefault, 
+          and added a new listener for the iframe's 'load' event 
+          to know when the Google Form submission is complete.
+        */
+        
+        const hiddenFrame = document.getElementById('hidden-frame');
+        let formSubmitted = false;
+
+        // This event fires when Google's "Thanks" page is loaded in the hidden iframe
+        hiddenFrame.addEventListener('load', () => {
+            if (formSubmitted) {
+                // Now we know the submission was successful, so trigger the success animation
+                handleSuccess();
+                formSubmitted = false; // Reset for next time
+            }
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            // DO NOT preventDefault(). Let the form submit to the iframe.
+            
+            formSubmitted = true; // Flag that a submission is in progress
+            
+            // 1. Hide Form, Show Loading
+            contentForm.classList.add('opacity-0', 'scale-95');
+            setTimeout(() => {
+                contentForm.classList.add('hidden');
+                contentLoading.classList.remove('hidden');
+                setTimeout(() => {
+                    contentLoading.classList.remove('opacity-0');
+                }, 50);
+            }, 500);
+
+            // The form will now submit to the hidden iframe.
+            // When it's done, the iframe's 'load' event will fire and call handleSuccess().
+        });
+
+        function handleSuccess() {
+            // 3. Hide Loading, Show Success
+            contentLoading.classList.add('opacity-0');
+            setTimeout(() => {
+                contentLoading.classList.add('hidden');
+                contentSuccess.classList.remove('hidden');
+                
+                // Reset and play checkmark animation
+                const checkPath = document.querySelector('.checkmark-path');
+                if (checkPath) {
+                    checkPath.style.strokeDashoffset = 100; // Reset
+                    // Force reflow
+                    checkPath.getBoundingClientRect(); 
+                    checkPath.style.animation = 'draw-check .5s ease-out .4s forwards';
+                }
+                const checkSvg = document.querySelector('.checkmark-svg');
+                if (checkSvg) {
+                    checkSvg.style.animation = 'fill-success .4s ease-in-out .4s forwards, scale-success .3s ease-in-out .9s both';
+                }
+                
+                setTimeout(() => {
+                    contentSuccess.classList.remove('opacity-0');
+                }, 50);
+            }, 500);
+
+            // 4. Wait 2 seconds, then reset the form
+            setTimeout(() => {
+                closeForm();
+            }, 3000); // Wait 3s (2s for message + 1s for anim)
+        }
+
+        function handleError() {
+            // Optional: Build an error state
+            alert('Oops! Something went wrong. Please try again.');
+            closeForm();
+        }
+
+    </script>
+
+</body>
+</html>
+
